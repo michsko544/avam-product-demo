@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 
+import { Footer } from "@/modules/layout/components/footer";
+import { Nav } from "@/modules/layout/components/nav";
 
-import "./globals.css";
+import "@/styles/globals.css";
 
 const roboto = Roboto({
 	variable: "--font-roboto",
@@ -21,8 +23,25 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${roboto.variable} antialiased`}>
+			<body className={`${roboto.variable} antialiased bg-white text-neutral-900 font-roboto`}>
+				<Nav
+					links={[
+						{ linkText: "Home", linkUrl: "/" },
+						{ linkText: "Example Product", linkUrl: "/products/example-product" },
+					]}
+				/>
 				<main>{children}</main>
+				<Footer
+					links={[
+						{ linkText: "Legal & Trademarks", linkUrl: "/legal-and-trademarks" },
+						{ linkText: "Terms & Conditions", linkUrl: "/terms-and-conditions" },
+						{ linkText: "Privacy Policy", linkUrl: "/privacy-policy" },
+						{ linkText: "Returns Policy", linkUrl: "/returns-policy" },
+						{ linkText: "FAQs", linkUrl: "/faqs" },
+						{ linkText: "Contact", linkUrl: "/contact" },
+						{ linkText: "Order Tracking", linkUrl: "/order-tracking" },
+					]}
+				/>
 			</body>
 		</html>
 	);
