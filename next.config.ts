@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
 				protocol: "https",
 				hostname: "i0.wp.com",
 			},
+			{
+				protocol: "https",
+				hostname: "avam.com",
+			},
 		],
 	},
 	webpack(config) {

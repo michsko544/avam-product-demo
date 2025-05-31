@@ -6,15 +6,17 @@ import PhHeartFill from "~icons/ph/heart-fill.svg";
 import PhSealCheck from "~icons/ph/seal-check.svg";
 
 import { Link } from "@/modules/common/components/link";
+import type { Media, Product } from "@/types/products";
 import Fa6BrandsFacebookF from "~icons/fa6-brands/facebook-f.jsx";
 import Fa6BrandsPinterest from "~icons/fa6-brands/pinterest.jsx";
 import Fa6BrandsXTwitter from "~icons/fa6-brands/x-twitter.jsx";
 
 type Props = {
-	product: unknown;
+	product: Product;
+	featuredImage: Media | null;
 };
 
-export function ProductMain({ product }: Props) {
+export function ProductMain({ product, featuredImage }: Props) {
 	return (
 		<section className="lg:bg-neutral-200 lg:px-4 lg:pt-5 pb-6 lg:pb-15 border-b border-neutral-300">
 			<div className="content-container mx-auto">
@@ -29,32 +31,33 @@ export function ProductMain({ product }: Props) {
 				</div>
 				<div className="w-full flex flex-col lg:flex-row lg:gap-4">
 					<div className="w-full relative lg:pl-20 lg:pt-10">
-						<Image
-							src={
-								"https://i0.wp.com/avam.com/wp-content/uploads/2025/02/NAsafe-with-Swabs-A1-scaled.jpg?fit=2560,2560&ssl=1"
-							}
-							alt="Product Image"
-							priority
-							loading="eager"
-							width={680}
-							height={680}
-							className="object-cover object-center"
-							sizes="(max-width: 680px) 100vw, 680px"
-						/>
+						{featuredImage ? (
+							<Image
+								src={featuredImage.source_url}
+								alt={featuredImage.alt_text ?? featuredImage.title.rendered ?? product.title.rendered}
+								priority
+								loading="eager"
+								width={680}
+								height={680}
+								className="object-cover object-center"
+								sizes="(max-width: 680px) 100vw, 680px"
+							/>
+						) : (
+							<div className="w-full h-[680px] bg-neutral-300 flex items-center justify-center">
+								<span className="text-neutral-900">No Image Available</span>
+							</div>
+						)}
 					</div>
 					<div className="w-full px-4 py-10 lg:pl-20">
 						<div>
 							<h1 className="text-neutral-900 text-2xl leading-[1.2] font-normal mb-3">
-								Avam® NAsafe™ Nucleic Acid Molecular Transport Medium
+								{product.title.rendered}
 							</h1>
 							<div className="text-brand-primary text-xl leading-[1]">$201.00 - $245.00</div>
 						</div>
 						<div className="mt-6">
 							<p className="text-base leading-[1.8] text-neutral-700">
-								Avam® NAsafe™ is an advanced nucleic acid transport medium designed to collect, inactivate,
-								and preserve microbial and human nucleic acids with unparalleled efficiency. Ideal for
-								molecular diagnostics, genetics research, and sequencing applications, NAsafe™ ensures sample
-								integrity from collection to analysis.
+								{product.excerpt.rendered.replaceAll(/<[^>]+>/g, "")}
 							</p>
 							<div className="flex items-center gap-2 mt-6 bg-brand-tonal rounded-lg px-6 py-2 w-fit">
 								<PhSealCheck width={20} height={20} className="text-black" />
@@ -63,7 +66,12 @@ export function ProductMain({ product }: Props) {
 								</span>
 							</div>
 							<div className="mt-10">
-								<ProductActions product={product} />
+								<ProductActions
+									options={{
+										swabTypes: ["Swab Type 1", "Swab Type 2", "Swab Type 3"],
+										productQuantities: ["Pack of 50", "Pack of 100", "Pack of 200"],
+									}}
+								/>
 							</div>
 							<div className="mt-8">
 								<div className="flex items-center divide-x divide-neutral-500">

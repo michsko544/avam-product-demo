@@ -7,10 +7,13 @@ import PhMinus from "~icons/ph/minus.jsx";
 import PhPlus from "~icons/ph/plus.jsx";
 
 type Props = {
-	product: unknown;
+	options?: {
+		swabTypes: string[];
+		productQuantities: string[];
+	};
 };
 
-export function ProductActions({ product }: Props) {
+export function ProductActions({ options }: Props) {
 	const [swabType, setSwabType] = useState<string | null>(null);
 	const [productQuantity, setProductQuantity] = useState<string | null>(null);
 	const [quantity, setQuantity] = useState<number>(1);
@@ -32,9 +35,11 @@ export function ProductActions({ product }: Props) {
 					<option value="" disabled>
 						Choose an option
 					</option>
-					<option value="nasal">Nasal</option>
-					<option value="oropharyngeal">Oropharyngeal</option>
-					<option value="nasopharyngeal">Nasopharyngeal</option>
+					{options?.swabTypes?.map((type) => (
+						<option key={type} value={type}>
+							{type}
+						</option>
+					))}
 				</select>
 			</div>
 			<div className="flex justify-between items-center gap-4 border-t border-neutral-300 px-4 py-3">
@@ -50,9 +55,11 @@ export function ProductActions({ product }: Props) {
 					<option value="" disabled>
 						Choose an option
 					</option>
-					<option value="1">Pack of 50</option>
-					<option value="2">Pack of 100</option>
-					<option value="3">Pack of 200</option>
+					{options?.productQuantities?.map((quantity) => (
+						<option key={quantity} value={quantity}>
+							{quantity}
+						</option>
+					))}
 				</select>
 			</div>
 			<div className="flex justify-between items-center gap-4 border-t border-neutral-300 px-4 py-3">
