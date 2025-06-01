@@ -27,7 +27,7 @@ export default function RootLayout({
 				<Nav
 					links={[
 						{ linkText: "Home", linkUrl: "/" },
-						{ linkText: "Example Product", linkUrl: "/products/example-product" },
+						{ linkText: "Example Product", linkUrl: "/products/avam-nasafe" },
 					]}
 				/>
 				<main>{children}</main>
