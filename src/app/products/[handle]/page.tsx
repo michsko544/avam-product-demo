@@ -1,10 +1,10 @@
-import { productDetailsMock, productOptionsMock } from "@/app/mocks/products";
 import {
 	getMediaById,
 	getProductByHandle,
 	getProducts,
 	getProductsByCategoryId,
 } from "@/lib/avam-wordpress/products";
+import { productDetailsMock, productOptionsMock } from "@/mocks/products";
 import { TabSwitcher } from "@/modules/common/components/tab-switcher";
 import { ProductSkuCategory } from "@/modules/products/components/product-sku-category";
 import { ProductDetailsSection } from "@/modules/products/sections/product-details-section";
@@ -12,6 +12,7 @@ import { ProductMainSection } from "@/modules/products/sections/product-main-sec
 import { ProductOptionsSection } from "@/modules/products/sections/product-options-section";
 import { RelatedProductsSection } from "@/modules/products/sections/related-products-section";
 import type { SearchParams } from "@/types/search-params";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 type Props = SearchParams<{
@@ -25,6 +26,23 @@ export async function generateStaticParams() {
 		.map((product) => ({
 			handle: product.slug,
 		}));
+}
+
+export async function generateMetadata({ params }: Props) {
+	const { handle } = await params;
+	const products = await getProductByHandle(handle).catch(() => null);
+	const product = products && products.length > 0 ? products[0] : null;
+	if (!product) {
+		notFound();
+	}
+
+	return {
+		title: product.title.rendered,
+		description: product.excerpt.rendered.replaceAll(/<[^>]+>/g, ""),
+		alternates: {
+			canonical: `/products/${product.slug}`,
+		},
+	} satisfies Metadata;
 }
 
 export default async function ProductPage({ params }: Props) {

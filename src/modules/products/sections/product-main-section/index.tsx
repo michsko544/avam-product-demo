@@ -5,7 +5,7 @@ import Image from "next/image";
 import PhHeartFill from "~icons/ph/heart-fill.jsx";
 import PhSealCheck from "~icons/ph/seal-check.jsx";
 
-import { productOptionsMock } from "@/app/mocks/products";
+import { productOptionsMock } from "@/mocks/products";
 import { Link } from "@/modules/common/components/link";
 import type { Media, Product } from "@/types/products";
 import Fa6BrandsFacebookF from "~icons/fa6-brands/facebook-f.jsx";
