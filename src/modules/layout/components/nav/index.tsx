@@ -13,7 +13,7 @@ type Props = {
 
 export async function Nav({ links = [] }: Props) {
 	return (
-		<div className="sticky top-0 inset-x-0 z-50 group isolate border-b border-neutral-200 bg-white lg:border-b-none">
+		<div className="sticky top-0 inset-x-0 z-50 group isolate border-b border-neutral-200 bg-white lg:border-b-0">
 			<div className="hidden w-full md:block">
 				<Banner />
 			</div>

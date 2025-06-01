@@ -1,5 +1,10 @@
+import { productDetailsMock, productOptionsMock } from "@/app/mocks/products";
 import { getMediaById, getProductByHandle, getProducts } from "@/lib/avam-wordpress/products";
-import { ProductMain } from "@/modules/products/sections/product-main";
+import { TabSwitcher } from "@/modules/common/components/tab-switcher";
+import { ProductSkuCategory } from "@/modules/products/components/product-sku-category";
+import { ProductDetailsSection } from "@/modules/products/sections/product-details-section";
+import { ProductMainSection } from "@/modules/products/sections/product-main-section";
+import { ProductOptionsSection } from "@/modules/products/sections/product-options-section";
 import type { SearchParams } from "@/types/search-params";
 import { notFound } from "next/navigation";
 
@@ -30,7 +35,22 @@ export default async function ProductPage({ params }: Props) {
 
 	return (
 		<div>
-			<ProductMain product={product} featuredImage={featuredImage} />
+			<ProductMainSection product={product} featuredImage={featuredImage} />
+			<TabSwitcher
+				tabs={[
+					{
+						label: "Description",
+						value: "description",
+						content: <ProductDetailsSection details={productDetailsMock} />,
+					},
+					{
+						label: "Additional information",
+						value: "additional_info",
+						content: <ProductOptionsSection options={productOptionsMock} />,
+					},
+				]}
+			/>
+			<ProductSkuCategory sku={"CTM1199"} category={"Molecular"} />
 		</div>
 	);
 }

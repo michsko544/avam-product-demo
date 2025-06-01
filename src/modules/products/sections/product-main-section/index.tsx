@@ -5,6 +5,7 @@ import Image from "next/image";
 import PhHeartFill from "~icons/ph/heart-fill.svg";
 import PhSealCheck from "~icons/ph/seal-check.svg";
 
+import { productOptionsMock } from "@/app/mocks/products";
 import { Link } from "@/modules/common/components/link";
 import type { Media, Product } from "@/types/products";
 import Fa6BrandsFacebookF from "~icons/fa6-brands/facebook-f.jsx";
@@ -16,9 +17,9 @@ type Props = {
 	featuredImage: Media | null;
 };
 
-export function ProductMain({ product, featuredImage }: Props) {
+export function ProductMainSection({ product, featuredImage }: Props) {
 	return (
-		<section className="lg:bg-neutral-200 lg:px-4 lg:pt-5 pb-6 lg:pb-15 border-b border-neutral-300">
+		<section className="lg:bg-neutral-200 lg:px-4 lg:pt-5 pb-6 lg:pb-15 border-b border-neutral-300 lg:border-b-0">
 			<div className="content-container mx-auto">
 				<div className="hidden lg:block lg:mb-4">
 					<Breadcrumbs
@@ -66,12 +67,7 @@ export function ProductMain({ product, featuredImage }: Props) {
 								</span>
 							</div>
 							<div className="mt-10">
-								<ProductActions
-									options={{
-										swabTypes: ["Swab Type 1", "Swab Type 2", "Swab Type 3"],
-										productQuantities: ["Pack of 50", "Pack of 100", "Pack of 200"],
-									}}
-								/>
+								<ProductActions options={productOptionsMock} />
 							</div>
 							<div className="mt-8">
 								<div className="flex items-center divide-x divide-neutral-500">
