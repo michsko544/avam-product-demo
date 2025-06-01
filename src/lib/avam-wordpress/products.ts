@@ -11,8 +11,16 @@ export const getProducts = cache(async () => {
 });
 
 export const getProductByHandle = cache(async (handle: string) => {
-	return apiClient<Product[]>(`/product?slug=${handle}&_embed=wp:featuredmedia`, {
+	return apiClient<Product[]>(`/product?slug=${handle}`, {
 		tags: ["products"],
+		revalidate: 60 * 60,
+		cache: "force-cache",
+	});
+});
+
+export const getProductsByCategoryId = cache(async (id: number) => {
+	return apiClient<Product[]>(`/product?product_cat=${id}&per_page=100`, {
+		tags: ["products", "categories"],
 		revalidate: 60 * 60,
 		cache: "force-cache",
 	});

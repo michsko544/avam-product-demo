@@ -1,10 +1,16 @@
 import { productDetailsMock, productOptionsMock } from "@/app/mocks/products";
-import { getMediaById, getProductByHandle, getProducts } from "@/lib/avam-wordpress/products";
+import {
+	getMediaById,
+	getProductByHandle,
+	getProducts,
+	getProductsByCategoryId,
+} from "@/lib/avam-wordpress/products";
 import { TabSwitcher } from "@/modules/common/components/tab-switcher";
 import { ProductSkuCategory } from "@/modules/products/components/product-sku-category";
 import { ProductDetailsSection } from "@/modules/products/sections/product-details-section";
 import { ProductMainSection } from "@/modules/products/sections/product-main-section";
 import { ProductOptionsSection } from "@/modules/products/sections/product-options-section";
+import { RelatedProductsSection } from "@/modules/products/sections/related-products-section";
 import type { SearchParams } from "@/types/search-params";
 import { notFound } from "next/navigation";
 
@@ -32,6 +38,9 @@ export default async function ProductPage({ params }: Props) {
 	}
 
 	const featuredImage = await getMediaById(product.featured_media).catch(() => null);
+	const relatedProducts = await getProductsByCategoryId(product.product_cat[0] ? product.product_cat[0] : 0)
+		.then((data) => data.filter((relatedProduct) => relatedProduct.id !== product.id))
+		.catch(() => []);
 
 	return (
 		<div>
@@ -51,6 +60,7 @@ export default async function ProductPage({ params }: Props) {
 				]}
 			/>
 			<ProductSkuCategory sku={"CTM1199"} category={"Molecular"} />
+			<RelatedProductsSection products={relatedProducts} />
 		</div>
 	);
 }

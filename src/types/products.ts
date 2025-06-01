@@ -7,6 +7,7 @@ export type Product = {
 	title: { rendered: string };
 	status: string;
 	featured_media: number;
+	product_cat: number[];
 };
 
 export type Media = {
