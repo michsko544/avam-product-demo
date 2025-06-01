@@ -42,6 +42,16 @@ export default async function ProductPage({ params }: Props) {
 		.then((data) => data.filter((relatedProduct) => relatedProduct.id !== product.id))
 		.catch(() => []);
 
+	const relatedProductsWithImages = await Promise.all(
+		relatedProducts.map(async (relatedProduct) => {
+			const image = await getMediaById(relatedProduct.featured_media).catch(() => null);
+			return {
+				product: relatedProduct,
+				featuredImage: image,
+			};
+		}),
+	);
+
 	return (
 		<div>
 			<ProductMainSection product={product} featuredImage={featuredImage} />
@@ -60,7 +70,7 @@ export default async function ProductPage({ params }: Props) {
 				]}
 			/>
 			<ProductSkuCategory sku={"CTM1199"} category={"Molecular"} />
-			<RelatedProductsSection products={relatedProducts} />
+			<RelatedProductsSection products={relatedProductsWithImages} />
 		</div>
 	);
 }

@@ -1,7 +1,8 @@
-import type { Product } from "@/types/products";
+import { ProductCard } from "@/modules/products/components/product-card";
+import type { Media, Product } from "@/types/products";
 
 type Props = {
-	products?: Product[];
+	products?: { product: Product; featuredImage: Media | null }[];
 };
 
 export function RelatedProductsSection({ products = [] }: Props) {
@@ -11,10 +12,10 @@ export function RelatedProductsSection({ products = [] }: Props) {
 				<div className="flex flex-col gap-6">
 					<h2 className="text-2xl text-neutral-900">Related products</h2>
 					{products.length > 0 ? (
-						<div className="flex gap-4">
-							{products.map((product) => (
-								<div key={product.id} className="flex-shrink-0 w-48">
-									<h3 className="text-lg font-semibold">{product.title.rendered}</h3>
+						<div className="flex flex-col gap-6 w-full lg:gap-8">
+							{products.slice(0, 4).map(({ product, featuredImage }) => (
+								<div key={product.id}>
+									<ProductCard product={product} featuredImage={featuredImage} />
 								</div>
 							))}
 						</div>

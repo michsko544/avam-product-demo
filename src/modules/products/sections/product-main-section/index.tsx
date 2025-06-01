@@ -26,7 +26,7 @@ export function ProductMainSection({ product, featuredImage }: Props) {
 						items={[
 							{ label: "Collection & Transport", href: "/product-category/collection-transport" },
 							{ label: "Molecular", href: "/product-category/collection-transport/molecular" },
-							{ label: "Avam® NAsafe™ Nucleic Acid Molecular Transport Medium" },
+							{ label: product.title.rendered },
 						]}
 					/>
 				</div>
