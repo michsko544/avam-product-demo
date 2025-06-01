@@ -5,6 +5,8 @@ import { SideMenu } from "@/modules/layout/components/side-menu";
 import type { NavLink } from "@/types/navigation";
 import { cn } from "@/utils/styles";
 
+import PhHeart from "~icons/ph/heart.jsx";
+import PhMagnifyingGlass from "~icons/ph/magnifying-glass.jsx";
 import IconShoppingCartSimple from "~icons/ph/shopping-cart-simple.jsx";
 
 type Props = {
@@ -30,7 +32,11 @@ export async function Nav({ links = [] }: Props) {
 							<div className="flex items-center gap-10">
 								<div className="hidden lg:flex items-center gap-8">
 									{links.map(({ linkText, linkUrl }) => (
-										<Link href={linkUrl} key={linkText}>
+										<Link
+											href={linkUrl}
+											key={linkText}
+											className="font-semibold text-neutral-700 hover:text-neutral-900"
+										>
 											{linkText}
 										</Link>
 									))}
@@ -38,7 +44,22 @@ export async function Nav({ links = [] }: Props) {
 							</div>
 
 							<div className="flex">
-								<div className="flex-1 basis-0 h-full flex items-center justify-end">
+								<div className="flex-1 basis-0 h-full flex items-center justify-end gap-6">
+									<div className="hidden lg:flex items-center gap-6">
+										<Link href="/search">
+											<PhMagnifyingGlass
+												width={16}
+												height={16}
+												className="text-neutral-700 hover:text-neutral-900"
+											/>
+										</Link>
+										<Link href="/wishlist">
+											<PhHeart width={16} height={16} className="text-neutral-700 hover:text-neutral-900" />
+										</Link>
+										<Link href="/login" className="font-semibold text-neutral-700 hover:text-neutral-900">
+											Login
+										</Link>
+									</div>
 									<Link href="/cart" className="p-2">
 										<IconShoppingCartSimple width={16} height={16} />
 									</Link>

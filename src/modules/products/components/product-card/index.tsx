@@ -35,7 +35,7 @@ export function ProductCard({ product, featuredImage }: Props) {
 					<Link href={`/products/${product.slug}`}>
 						<h3 className="text-lg text-neutral-900">{product.title.rendered}</h3>
 					</Link>
-					<button className="flex-shrink-0 p-1">
+					<button className="flex-shrink-0 p-1 cursor-pointer">
 						<PhHeart />
 					</button>
 				</div>

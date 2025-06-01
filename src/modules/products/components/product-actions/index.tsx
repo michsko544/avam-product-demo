@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@/modules/common/components/button";
-import { useState } from "react";
+import { addToCart } from "@/modules/products/actions";
+import { useActionState, useState } from "react";
 
 import PhMinus from "~icons/ph/minus.jsx";
 import PhPlus from "~icons/ph/plus.jsx";
@@ -18,10 +19,12 @@ export function ProductActions({ options }: Props) {
 	const [productQuantity, setProductQuantity] = useState<string | null>(null);
 	const [quantity, setQuantity] = useState<number>(1);
 
+	const [, formAction, pending] = useActionState(addToCart, null);
+
 	const isValid = swabType && productQuantity && quantity > 0;
 
 	return (
-		<form className="border-r border-l border-neutral-300">
+		<form action={formAction} className="border-r border-l border-neutral-300">
 			<div className="flex justify-between items-center gap-4 border-t border-neutral-300 px-4 py-3">
 				<label htmlFor="swab-type" className="text-base text-neutral-900">
 					Swab Type
@@ -29,6 +32,7 @@ export function ProductActions({ options }: Props) {
 				<select
 					className="border-none outline-none text-right pr-2 text-base text-neutral-900"
 					id="swab-type"
+					name="swab_type"
 					value={swabType ?? ""}
 					onChange={(e) => setSwabType(e.target.value)}
 				>
@@ -49,6 +53,7 @@ export function ProductActions({ options }: Props) {
 				<select
 					className="border-none outline-none text-right pr-2 text-base text-neutral-900"
 					id="product-quantity"
+					name="product_quantity"
 					value={productQuantity ?? ""}
 					onChange={(e) => setProductQuantity(e.target.value)}
 				>
@@ -78,6 +83,7 @@ export function ProductActions({ options }: Props) {
 						type="number"
 						className="border-none outline-none text-center max-w-6 text-base text-neutral-900 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
 						id="quantity"
+						name="quantity"
 						value={quantity ?? ""}
 						min={1}
 						onChange={(e) => setQuantity(e.target.valueAsNumber)}
@@ -92,7 +98,7 @@ export function ProductActions({ options }: Props) {
 				</div>
 			</div>
 			<div>
-				<Button stretch type="submit" disabled={!isValid}>
+				<Button stretch type="submit" disabled={!isValid} isLoading={pending}>
 					Add to Cart
 				</Button>
 			</div>

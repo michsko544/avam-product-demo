@@ -2,8 +2,8 @@ import { Breadcrumbs } from "@/modules/common/components/breadcrumbs";
 import { ProductActions } from "@/modules/products/components/product-actions";
 import Image from "next/image";
 
-import PhHeartFill from "~icons/ph/heart-fill.svg";
-import PhSealCheck from "~icons/ph/seal-check.svg";
+import PhHeartFill from "~icons/ph/heart-fill.jsx";
+import PhSealCheck from "~icons/ph/seal-check.jsx";
 
 import { productOptionsMock } from "@/app/mocks/products";
 import { Link } from "@/modules/common/components/link";
@@ -11,6 +11,9 @@ import type { Media, Product } from "@/types/products";
 import Fa6BrandsFacebookF from "~icons/fa6-brands/facebook-f.jsx";
 import Fa6BrandsPinterest from "~icons/fa6-brands/pinterest.jsx";
 import Fa6BrandsXTwitter from "~icons/fa6-brands/x-twitter.jsx";
+
+import PhCaretLeftFill from "~icons/ph/caret-left-fill.jsx";
+import PhCaretRightFill from "~icons/ph/caret-right-fill.jsx";
 
 type Props = {
 	product: Product;
@@ -22,13 +25,23 @@ export function ProductMainSection({ product, featuredImage }: Props) {
 		<section className="lg:bg-neutral-200 lg:px-4 lg:pt-5 pb-6 lg:pb-15 border-b border-neutral-300 lg:border-b-0">
 			<div className="content-container mx-auto">
 				<div className="hidden lg:block lg:mb-4">
-					<Breadcrumbs
-						items={[
-							{ label: "Collection & Transport", href: "/product-category/collection-transport" },
-							{ label: "Molecular", href: "/product-category/collection-transport/molecular" },
-							{ label: product.title.rendered },
-						]}
-					/>
+					<div className="flex items-center justify-between gap-5">
+						<Breadcrumbs
+							items={[
+								{ label: "Collection & Transport", href: "/product-category/collection-transport" },
+								{ label: "Molecular", href: "/product-category/collection-transport/molecular" },
+								{ label: product.title.rendered },
+							]}
+						/>
+						<div className="flex gap-2">
+							<button className="cursor-pointer">
+								<PhCaretLeftFill className="text-neutral-600" />
+							</button>
+							<button className="cursor-pointer">
+								<PhCaretRightFill className="text-neutral-600" />
+							</button>
+						</div>
+					</div>
 				</div>
 				<div className="w-full flex flex-col lg:flex-row lg:gap-4">
 					<div className="w-full relative lg:pl-20 lg:pt-10">
